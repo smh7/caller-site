@@ -6,11 +6,11 @@ const app = express();
 
 
 // Config
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(express.static(__dirname + "/public"));
 
 
 const port = process.env.PORT || 8082;
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 var requestUrl = 'http://localhost:8080/cards';
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
   return request(requestUrl, function (error, response, body) {
     var objCards = {};
     let payload = JSON.parse(response.body);
@@ -36,7 +36,7 @@ app.get('/', function(req, res, next) {
           objCards = {
             print: payload
           }
-          console.log("this is IT!", objCards); 
+          // console.log("this is IT!", objCards); 
 
           res.render('products', objCards);    // send some response here
       } else {
@@ -47,44 +47,47 @@ app.get('/', function(req, res, next) {
   });
 })
 
-  // app.get('/', function(req, res, next){
-  // var obj = {};
-      
-  //   let options = {
-  //         url: 'localhost:8080/cards',
-  //         headers: {"Ocp-Apim-Subscription-Key": "xxxxx"}
-  //     };
-  //    await request(options).then
-
-  
-  // // let query = connection.query('SELECT * FROM products order by department_name ASC, lifetime_sold DESC', function (err, result) {
-
-  //   // if (err) {
-  //   //   throw err;
-  //   // } else {
-  //     let obj = {
-  //       print: res
-  //     };
-  //     console.log(obj);
-  //     res.render('products', obj);
-
-  //   }
-  // });
 
 
 
-// app.get("/add", (req, results) => {
-//   var q = "SELECT COUNT(*) AS count FROM products";
-//   connection.query(q, function (err, res) {
-//     if (err) throw err;
-//     var count = res[0].count;
-//     results.render('add', {
-//       data: count
-//     });
+app.get("/signup.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/signup.html"));
+});
+
+app.get("/login.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/signup.html"));
+});
+
+app.get("/addcard.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/addcard.html"));
+});
+
+// var requestUrlLogin = 'http://localhost:8080/card';
+// app.post('/card', function(req, res) {
+//   return request(requestUrl, function (error, response, body) {
+//     var objCards = {
+//         card_img_top: req.body.card_img_top,
+//         card_title: req.body.card_title,
+//         card_text: req.body.card_title,
+//         list_group1: req.body.list_group1,
+//         list_group2: req.body.list_group2,
+//         list_group3: req.body.list_group3
+//       };
+//     let payload = JSON.parse(response.body);
+//       if (!error && response.statusCode == 200) {
+//           objCards = {
+//             print: payload
+//           }
+//           // console.log("this is IT!", objCards); 
+
+//           res.render('products', objCards);    // send some response here
+//       } else {
+//           console.log("There was an error: ") + response.statusCode;
+//           console.log(body);
+//           // res.send(...)     // send some response here
+//       }
 //   });
-// });
-
-
+// })
 
 // app.post("/added", (request, results) => {
 //   var track = {
