@@ -7,7 +7,7 @@
         <div class="row" id="product-cards">
                 <% print.forEach(function (payload) { %>
 
-                <div class="card m-3 bg-light" style="width: 18rem;" id=<%= payload.id %>>
+                <div class="card col-4" style="width: 18rem;" id=<%= payload.id %>>
                         <img class="card-img-top" <%-payload.card_img_top%> >
                         <div class="card-body">
                           <h5 class="card-title"><%= payload.card_title %></h5>

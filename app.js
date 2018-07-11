@@ -7,6 +7,10 @@ const app = express();
 
 // Config
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public/cms"));
+app.use(express.static(__dirname + "/public/img"));
+
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
   extended: true
@@ -46,7 +50,45 @@ app.get('/', function(req, res) {
       }
   });
 })
+var requestUrl = 'http://localhost:8080/cards';
+app.get('/bunyan', function(req, res) {
+  return request(requestUrl, function (error, response, body) {
+    var objCards = {};
+    let payload = JSON.parse(response.body);
+      if (!error && response.statusCode == 200) {
+          objCards = {
+            print: payload
+          }
+          // console.log("this is IT!", objCards); 
 
+          res.render('bunyan', objCards);    // send some response here
+      } else {
+          console.log("There was an error: ") + response.statusCode;
+          console.log(body);
+          // res.send(...)     // send some response here
+      }
+  });
+})
+
+var requestUrl = 'http://localhost:8080/cards';
+app.get('/current', function(req, res) {
+  return request(requestUrl, function (error, response, body) {
+    var objCards = {};
+    let payload = JSON.parse(response.body);
+      if (!error && response.statusCode == 200) {
+          objCards = {
+            print: payload
+          }
+          // console.log("this is IT!", objCards); 
+
+          res.render('cmsproducts', objCards);    // send some response here
+      } else {
+          console.log("There was an error: ") + response.statusCode;
+          console.log(body);
+          // res.send(...)     // send some response here
+      }
+  });
+})
 
 
 

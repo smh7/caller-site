@@ -1,0 +1,74 @@
+<% include partials/header %>
+    <header>
+        <h1 class="display-3 text-center my-4">Product Cards</h1>
+    </header>
+    <div class="container">
+
+        <div class="row" id="product-cards">
+                <% print.forEach(function (payload) { %>
+
+                <div class="card m-3 bg-light" style="width: 18rem;" id=<%= payload.id %>>
+                        <img class="card-img-top" <%-payload.card_img_top%> >
+                        <div class="card-body">
+                          <h5 class="card-title"><%= payload.card_title %>,Card ID: <%= payload.id %></h5>
+                          <p class="card-text"><%= payload.card_text %></p>
+                        </div>
+                        <ul class="list-group list-group-flush bg-light">
+                          <li class="list-group-item bg-light"><%= payload.list_group1 %></li>
+                          <li class="list-group-item bg-light"><%= payload.list_group2 %></li>
+                          <li class="list-group-item bg-light"><%= payload.list_group3 %></li>
+                        </ul>
+                        <div class="card-body">
+                        </div>
+                      </div>
+                    <% }) %>
+
+                    <div class="container">
+                    <div class="row">
+                      <div class="col-md-7 mb-5">
+                        <h2 class="display-4">CMS Add, Update, Delete Product Card</h2>
+                        <p class="font-weight-bold">For Update or Delete, you need to enter an Card ID, shown in cards above after the card title</p>
+                          <form id="add-form" name="card-input" action="/card" method="POST">
+                              <div class="form-group">
+                                <label for="InputCardImg">Image please use format "img src='http://localhost:8080/img/maine.jpg'" </label>
+                                <input type="text" class="form-control" id="card_img_top" aria-describedby="imageUrl" placeholder="Enter card image" name="card_img_top">
+                                <small id="imgHelp" class="form-text text-muted">At present images need to reside in /public/img</small>
+                              </div>
+                              <div class="form-group">
+                                <label for="InputCardTitle">Title on Card</label>
+                                <input type="text" class="form-control" id="InputTitle" placeholder="Title" name="card_title">
+                              </div>
+              
+                              <div class="form-group">
+                                <label for="InputCardTitle">TText block within Card</label>
+                                <input type="text" class="form-control" id="InputText" placeholder="Text" name="card_text">
+                              </div>
+              
+                              <div class="form-group">
+                                <label for="InputCardTitle">list item, facts in brief 1</label>
+                                <input type="text" class="form-control" id="InputListG1" placeholder="Title" name="list_group1">
+                              </div>
+              
+                              <div class="form-group">
+                                <label for="InputCardTitle">list item, facts in brief 2 (optional)</label>
+                                <input type="text" class="form-control" id="InputListG2" placeholder="Title" name="list_group2">
+                              </div>
+              
+                              <div class="form-group">
+                                <label for="InputCardTitle">list item, facts in brief 3 (optional)</label>
+                                <input type="text" class="form-control" id="InputListG1" placeholder="Title" name="list_group3">
+                              </div>
+                              
+                              <button type="button" class="btn btn-primary" id="submit-card">Create</button>
+                              <button type="button" class="btn btn-warning" id="submit-card">Update</button>
+                              <button type="button" class="btn btn-danger" id="submit-card">Delete</button>
+
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                      
+
+        </div>
+    </div>
+    <% include partials/footer %>
